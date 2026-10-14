@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vedantam Revanth Sai · AI &amp; Data Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-charts.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      :root {
+        --page-max: 1244px;
+        --x-bg: #05060a;
+        --x-s1: rgba(17, 20, 30, 0.72);
+        --x-s2: #141824;
+        --x-line: rgba(255, 255, 255, 0.08);
+        --x-line2: rgba(255, 255, 255, 0.16);
+        --x-acc: #00e5ff;
+        --x-vio: #7c3aed;
+        --x-grad: linear-gradient(90deg, #00e5ff, #7c3aed, #00e5ff);
+        --x-text: #f2f4f7;
+        --x-mute: #a1a7b3;
+        --x-dim: #8a919e;
+        --x-bronze: #c08457;
+        --x-silver: #a8b0bc;
+        --x-gold: #e2b857;
+        --x-sans: "Outfit", system-ui, sans-serif;
+        --x-mono: "JetBrains Mono", ui-monospace, monospace;
+        --x-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      body.x-body { background: var(--x-bg); color: var(--x-text); font: 400 17px/1.7 var(--x-sans); }
+      body.x-body ::selection { background: rgba(0, 229, 255, 0.3); }
+      .x-body :focus-visible { outline: 2px solid var(--x-acc); outline-offset: 3px; border-radius: 6px; }
+      .x-wrap { width: 100%; max-width: 1180px; margin: 0 auto; }
+      .x-mono { font-family: var(--x-mono); }
+      .x-acc { color: var(--x-acc); }
+
+      /* nav */
+      .x-nav { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px; transition: background 0.3s, box-shadow 0.3s; }
+      .x-nav.is-scrolled { background: rgba(10, 11, 15, 0.72); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); box-shadow: 0 0 0 100vmax rgba(10, 11, 15, 0.72), 0 1px 0 100vmax var(--x-line); clip-path: inset(0 -100vmax -1px); }
+      .x-mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 19px; letter-spacing: -0.02em; text-decoration: none; min-height: 44px; }
+      .x-mark i { width: 9px; height: 9px; background: var(--x-acc); border-radius: 2px; }
+      .x-menu { display: flex; align-items: center; gap: 4px; list-style: none; margin: 0; padding: 0; }
+      .x-menu a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: var(--x-mute); text-decoration: none; font-size: 15px; transition: color 0.2s; }
+      .x-menu a:hover, .x-menu a.is-active { color: var(--x-text); }
+      .x-menu a.is-active::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--x-acc); margin-right: 8px; }
+      .x-burger { display: none; width: 44px; height: 44px; border: 1px solid var(--x-line); border-radius: 10px; background: transparent; color: var(--x-text); cursor: pointer; }
+      .x-burger span { display: block; width: 16px; height: 1.5px; background: currentColor; margin: 4px auto; transition: transform 0.25s; }
+      .x-nav.is-open .x-burger span:first-child { transform: translateY(2.75px) rotate(45deg); }
+      .x-nav.is-open .x-burger span:last-child { transform: translateY(-2.75px) rotate(-45deg); }
+
+      /* buttons */
+      .x-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 20px; border-radius: 10px; font: 500 15px/1 var(--x-sans); text-decoration: none; border: 1px solid var(--x-line2); color: var(--x-text); background: transparent; transition: border-color 0.2s, background 0.2s, transform 0.2s; white-space: nowrap; }
+      .x-btn:hover { border-color: rgba(255, 255, 255, 0.36); background: rgba(255, 255, 255, 0.03); }
+      .x-btn--solid { background: var(--x-acc); border-color: var(--x-acc); color: #001318; font-weight: 600; }
+      .x-btn--solid:hover { background: #6ff0ff; border-color: #6ff0ff; }
+      .x-btn--sm { min-height: 40px; padding: 0 14px; font-size: 14px; margin-left: 12px; }
+      .x-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+
+      /* sections */
+      .x-sec { padding: 120px 0 0; scroll-margin-top: 60px; }
+      .x-kicker { font: 500 12px/1 var(--x-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--x-dim); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+      .x-kicker::before { content: ""; width: 18px; height: 1px; background: var(--x-acc); }
+      .x-h2 { font: 600 clamp(34px, 4.4vw, 56px)/1.06 var(--x-sans); letter-spacing: -0.035em; max-width: 18ch; }
+      .x-lede { color: var(--x-mute); max-width: 58ch; margin-top: 18px; }
+      .x-head { margin-bottom: 56px; }
+      .x-card { background: var(--x-s1); border: 1px solid var(--x-line); border-radius: 18px; transition: border-color 0.25s; }
+      .x-card:hover { border-color: var(--x-line2); }
+      .x-label { font: 500 12px/1.4 var(--x-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--x-dim); }
+      .x-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+      .x-tags li { font: 400 12.5px/1 var(--x-mono); color: #c7ccd4; padding: 7px 10px; border: 1px solid var(--x-line); border-radius: 7px; background: var(--x-s2); }
+
+      /* hero */
+      .x-hero { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 56px; align-items: center; padding: 88px 0 24px; }
+      .x-pill { display: inline-flex; align-items: center; gap: 10px; font: 400 12.5px/1 var(--x-mono); color: #c7ccd4; padding: 9px 14px; border: 1px solid var(--x-line); border-radius: 999px; background: var(--x-s1); }
+      .x-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--x-acc); box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.15); }
+      .x-h1 { font: 600 clamp(44px, 4.9vw, 74px)/1.02 var(--x-sans); letter-spacing: -0.045em; margin: 28px 0 24px; }
+      .x-hero__line { color: var(--x-mute); max-width: 54ch; margin-bottom: 36px; }
+      .x-hero__line b { color: var(--x-text); font-weight: 500; }
+      .x-glass { background: var(--x-s1); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border: 1px solid var(--x-line); }
+      html, body.x-body { overflow-x: clip; }
+      .x-herow { position: relative; isolation: isolate; overflow: clip; }
+      .x-globe { position: absolute; z-index: -1; top: 0; right: 0; width: min(760px, 70%); aspect-ratio: 1; pointer-events: none; opacity: 0.9; }
+      .x-floor { position: absolute; z-index: -2; left: 0; bottom: 0; width: 100%; height: 46%; perspective: 420px; overflow: hidden; pointer-events: none; -webkit-mask: linear-gradient(transparent, #000 70%); mask: linear-gradient(transparent, #000 70%); }
+      .x-floor::before { content: ""; position: absolute; inset: -100% -50% 0; transform: rotateX(62deg); transform-origin: bottom; background-image: linear-gradient(rgba(0, 229, 255, 0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 58, 237, 0.18) 1px, transparent 1px); background-size: 56px 56px; animation: x-floor 3s linear infinite; }
+      @keyframes x-floor { to { background-position: 0 56px; } }
+      .x-pill i { animation: x-ping 2s infinite; }
+      @keyframes x-ping { 50% { box-shadow: 0 0 0 7px rgba(0, 229, 255, 0); } }
+      .x-tline { margin-top: 22px; font: 400 13.5px/1.5 var(--x-mono); color: var(--x-mute); min-height: 1.5em; overflow-wrap: anywhere; }
+      .x-tline b { color: #a78bfa; font-weight: 400; }
+      .x-caret { display: inline-block; width: 8px; height: 1.05em; vertical-align: -0.15em; margin-left: 2px; background: var(--x-acc); animation: x-blink 1s steps(1) infinite; }
+      @keyframes x-blink { 50% { opacity: 0; } }
+      .x-h1 { margin: 14px 0 10px; color: var(--x-text); text-shadow: 0 0 28px rgba(0, 229, 255, 0.35), 0 0 60px rgba(124, 58, 237, 0.3); }
+      .x-role { font: 500 clamp(18px, 2vw, 22px)/1.4 var(--x-mono); color: var(--x-text); margin-bottom: 18px; min-height: 1.4em; }
+      .x-role span { color: var(--x-acc); }
+      .x-holo { position: relative; justify-self: center; width: min(400px, 82%); margin: 40px 0; }
+      .x-holo__card { position: relative; aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: radial-gradient(70% 55% at 50% 62%, rgba(0, 229, 255, 0.28), transparent 70%), radial-gradient(60% 40% at 80% 10%, rgba(124, 58, 237, 0.35), transparent 70%), rgba(14, 17, 27, 0.8); border: 1px solid rgba(0, 229, 255, 0.3); box-shadow: 0 0 60px rgba(0, 229, 255, 0.12), inset 0 0 40px rgba(124, 58, 237, 0.15); }
+      .x-holo__card img { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 94%; height: auto; max-height: 94%; object-fit: contain; object-position: bottom; filter: saturate(1.05) contrast(1.05); }
+      .x-holo__card::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 229, 255, 0.05) 0 1px, transparent 1px 4px), linear-gradient(115deg, transparent 35%, rgba(0, 229, 255, 0.16) 48%, rgba(124, 58, 237, 0.16) 52%, transparent 65%); background-size: auto, 300% 100%; animation: x-sheen 6s linear infinite; pointer-events: none; }
+      @keyframes x-sheen { from { background-position: 0 0, 150% 0; } to { background-position: 0 0, -150% 0; } }
+      .x-hud { position: absolute; left: 14px; right: 14px; display: flex; justify-content: space-between; gap: 8px; font: 400 12px/1 var(--x-mono); color: var(--x-acc); z-index: 1; }
+      .x-hud--t { top: 14px; } .x-hud--b { bottom: 14px; color: var(--x-text); }
+      .x-hud span { padding: 7px 9px; border-radius: 8px; background: rgba(5, 6, 10, 0.65); border: 1px solid var(--x-line); }
+      .x-ticker { overflow: hidden; border-block: 1px solid var(--x-line); padding: 12px 0; -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+      .x-ticker div { display: flex; gap: 40px; width: max-content; font: 400 12.5px/1 var(--x-mono); color: var(--x-dim); animation: x-tick 40s linear infinite; }
+      .x-ticker b { color: var(--x-acc); font-weight: 400; }
+      @keyframes x-tick { to { transform: translateX(-50%); } }
+      .x-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 40; background: var(--x-grad); transform-origin: 0 50%; transform: scaleX(0); }
+      .x-map { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 25; display: none; flex-direction: column; gap: 2px; list-style: none; margin: 0; padding: 10px 6px; border-radius: 14px; }
+      .x-map a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; min-height: 30px; padding: 0 8px; color: var(--x-dim); text-decoration: none; font: 400 12px/1 var(--x-mono); }
+      .x-map a span { opacity: 0; transform: translateX(6px); transition: opacity 0.2s, transform 0.2s; }
+      .x-map a span { pointer-events: none; }
+      .x-map:hover a span, .x-map a:focus-visible span { opacity: 1; transform: none; }
+      .x-map:hover { background: rgba(10, 12, 18, 0.92); }
+      .x-map a i { width: 6px; height: 14px; border-radius: 3px; background: var(--x-line2); transition: background 0.2s, height 0.2s; }
+      .x-map a.is-active { color: var(--x-text); }
+      .x-map a.is-active i { background: var(--x-acc); height: 22px; box-shadow: 0 0 10px var(--x-acc); }
+      @media (min-width: 1360px) { .x-map { display: flex; } }
+
+      /* metrics */
+      .x-metrics { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--x-line); border-radius: 18px; background: var(--x-s1); margin-top: 72px; }
+      .x-metric { padding: 30px 28px; border-left: 1px solid var(--x-line); }
+      .x-metric:first-child { border-left: 0; }
+      .x-metric b { display: block; font: 600 clamp(34px, 3.6vw, 48px)/1 var(--x-sans); letter-spacing: -0.04em; color: var(--x-text); }
+      .x-metric b em { font-style: normal; color: var(--x-acc); }
+      .x-metric > span { display: block; margin-top: 12px; font: 400 12.5px/1.4 var(--x-mono); color: var(--x-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+
+      /* about */
+      .x-about { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 72px; align-items: start; }
+      .x-ring { position: relative; width: 64px; height: 64px; margin-bottom: 16px; }
+      .x-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+      .x-ring circle { fill: none; stroke-width: 4; }
+      .x-ring circle:first-child { stroke: var(--x-line); }
+      .x-ring circle + circle { stroke: url(#x-rg); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.6s var(--x-ease); }
+      .x-js .x-rv.is-in .x-ring circle + circle, .x-still .x-ring circle + circle { stroke-dashoffset: calc(100 - var(--p)); }
+      .x-term { border-radius: 16px; overflow: hidden; font: 400 14px/1.7 var(--x-mono); }
+      .x-term__bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--x-line); color: var(--x-dim); font-size: 12px; }
+      .x-term__bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+      .x-term__bar i:nth-child(2) { background: #febc2e; } .x-term__bar i:nth-child(3) { background: #28c840; margin-right: 8px; }
+      .x-term__body { padding: 20px 22px; color: var(--x-mute); }
+      .x-term__body .x-p { color: var(--x-acc); }
+      .x-json { padding: 0; }
+      .x-json pre { margin: 0; padding: 20px 22px; white-space: pre-wrap; overflow-wrap: anywhere; font: 400 13.5px/1.75 var(--x-mono); color: var(--x-mute); }
+      .x-json .k { color: var(--x-acc); } .x-json .s { color: #c4b5fd; } .x-json .n { color: #fff; }
+      .x-prose p { color: var(--x-mute); }
+      .x-prose p + p { margin-top: 16px; }
+      .x-prose strong { color: var(--x-text); font-weight: 500; }
+      .x-principles { list-style: none; margin: 40px 0 0; padding: 0; border-top: 1px solid var(--x-line); }
+      .x-principles li { display: grid; grid-template-columns: 44px 200px 1fr; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--x-line); align-items: baseline; }
+      .x-principles small { font: 400 12px/1 var(--x-mono); color: var(--x-acc); }
+      .x-principles h3 { font: 500 18px/1.3 var(--x-sans); letter-spacing: -0.01em; }
+      .x-principles p { color: var(--x-mute); font-size: 16px; }
+
+      /* how */
+      .x-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; position: relative; }
+      .x-step { position: relative; padding: 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+      .x-step:not(:last-child)::after { content: ""; position: absolute; top: 34px; right: -13px; width: 14px; height: 1px; background: var(--x-acc); opacity: 0.6; }
+      .x-step__n { font: 500 12px/1 var(--x-mono); color: var(--x-acc); }
+      .x-step h3 { font: 500 19px/1.25 var(--x-sans); letter-spacing: -0.015em; }
+      .x-step p { color: var(--x-mute); font-size: 15px; line-height: 1.6; }
+      .x-step .x-tags { margin-top: auto; padding-top: 8px; }
+      .x-step .x-tags li { font-size: 12px; padding: 6px 8px; }
+
+      /* experience */
+      .x-job { padding: 40px; display: grid; grid-template-columns: 260px 1fr; gap: 48px; }
+      .x-job h3 { font: 600 24px/1.2 var(--x-sans); letter-spacing: -0.02em; }
+      .x-job__org { color: var(--x-acc); margin-top: 8px; font-weight: 500; }
+      .x-job__when { margin-top: 14px; }
+      .x-impact { list-style: none; margin: 0; padding: 0; }
+      .x-impact li { display: grid; grid-template-columns: 96px 1fr; gap: 20px; padding: 16px 0; border-top: 1px solid var(--x-line); color: var(--x-mute); font-size: 16px; }
+      .x-impact li:first-child { border-top: 0; padding-top: 0; }
+      .x-impact b { font: 500 15px/1.6 var(--x-mono); color: var(--x-acc); white-space: nowrap; }
+      .x-impact strong { color: var(--x-text); font-weight: 500; }
+
+      /* projects */
+      .x-bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+      .x-proj { position: relative; padding: 30px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+      .x-proj--xl { grid-column: span 7; min-height: 440px; }
+      .x-proj--l { grid-column: span 5; min-height: 440px; }
+      .x-proj--m { grid-column: span 6; }
+      .x-proj--s { grid-column: span 4; }
+      .x-proj__top { display: flex; justify-content: space-between; gap: 12px; }
+      .x-proj__top .x-label:first-child { color: var(--x-acc); }
+      .x-proj h3 { font: 600 clamp(22px, 2.2vw, 28px)/1.15 var(--x-sans); letter-spacing: -0.025em; max-width: 20ch; }
+      .x-proj--s h3 { font-size: 21px; }
+      .x-proj h3 small { display: block; font: 400 15px/1.4 var(--x-sans); color: var(--x-dim); letter-spacing: 0; margin-top: 4px; }
+      .x-proj p { color: var(--x-mute); font-size: 15.5px; line-height: 1.65; }
+      .x-nums { display: flex; flex-wrap: wrap; gap: 28px; margin: 6px 0 4px; list-style: none; padding: 0; }
+      .x-nums b { display: block; font: 600 34px/1 var(--x-sans); letter-spacing: -0.04em; color: var(--x-text); }
+      .x-nums b em { font-style: normal; color: var(--x-acc); }
+      .x-proj--s .x-nums b, .x-proj--m .x-nums b { font-size: 30px; }
+      .x-nums span { display: block; margin-top: 6px; font: 400 12px/1.3 var(--x-mono); color: var(--x-dim); }
+      .x-proj__foot { margin-top: auto; display: flex; flex-direction: column; gap: 16px; padding-top: 6px; }
+      .x-gh { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--x-text); text-decoration: none; font: 500 14px/1 var(--x-mono); transition: color 0.2s, gap 0.2s; }
+      .x-gh:hover { color: var(--x-acc); gap: 10px; }
+      .x-viz { position: absolute; top: 28px; right: 30px; width: 140px; height: auto; opacity: 0.9; }
+      .x-viz rect { fill: var(--x-acc); }
+      .x-viz--bars rect { fill: rgba(255, 255, 255, 0.14); }
+      .x-viz--bars rect.x-hot { fill: var(--x-acc); }
+      .x-proj--xl .x-proj__top, .x-proj--l .x-proj__top { padding-right: 160px; flex-direction: column; gap: 8px; }
+      .x-proj--more { justify-content: center; align-items: flex-start; background: transparent; border-style: dashed; }
+
+      /* stack */
+      .x-stackt { border-top: 1px solid var(--x-line); }
+      .x-stackt > div { display: grid; grid-template-columns: 260px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--x-line); align-items: start; }
+      .x-stackt h3 { font: 500 17px/1.4 var(--x-sans); padding-top: 4px; display: flex; gap: 12px; align-items: baseline; }
+      .x-stackt h3 small { font: 400 12px/1 var(--x-mono); color: var(--x-dim); }
+
+      /* education */
+      .x-duo { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; }
+      .x-edu, .x-cert { padding: 36px; display: flex; flex-direction: column; gap: 14px; }
+      .x-edu h3, .x-cert h3 { font: 600 24px/1.2 var(--x-sans); letter-spacing: -0.02em; }
+      .x-edu__meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--x-mute); font-size: 16px; }
+      .x-edu__row { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end; margin: 8px 0; }
+      .x-edu__row b { display: block; font: 600 44px/1 var(--x-sans); letter-spacing: -0.04em; color: var(--x-acc); }
+      .x-edu__row b small { font-size: 18px; color: var(--x-dim); font-weight: 400; }
+      .x-edu__row p { color: var(--x-text); font-weight: 500; margin-top: 6px; }
+      .x-check { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.3); color: var(--x-acc); }
+      .x-cert p { color: var(--x-mute); }
+      .x-verified { display: inline-flex; align-items: center; gap: 8px; font: 400 12.5px/1 var(--x-mono); color: var(--x-acc) !important; margin-top: auto; }
+      .x-beyond { display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 16px; border: 1px solid var(--x-line); border-radius: 18px; }
+      .x-beyond > * { padding: 22px 26px; border-left: 1px solid var(--x-line); color: var(--x-mute); font-size: 15.5px; line-height: 1.55; }
+      .x-beyond > :first-child { border-left: 0; display: flex; align-items: center; }
+      .x-beyond b { color: var(--x-acc); font: 500 16px var(--x-mono); }
+
+      /* contact */
+      .x-contact { padding: 160px 0 120px; }
+      .x-contact h2 { font: 600 clamp(44px, 6vw, 84px)/1.02 var(--x-sans); letter-spacing: -0.045em; max-width: 14ch; }
+      .x-contact p { color: var(--x-mute); margin-top: 22px; max-width: 52ch; }
+      .x-email { display: inline-block; min-height: 44px; margin: 40px 0 36px; font: 500 clamp(22px, 3.2vw, 40px)/1.2 var(--x-sans); letter-spacing: -0.02em; color: var(--x-acc); text-decoration: none; border-bottom: 1px solid rgba(0, 229, 255, 0.35); padding-bottom: 6px; overflow-wrap: anywhere; transition: border-color 0.2s; }
+      .x-email:hover { border-color: var(--x-acc); }
+
+      /* footer */
+      .x-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 28px 0 8px; border-top: 1px solid var(--x-line); color: var(--x-dim); font-size: 14px; }
+      .x-icons { display: flex; gap: 4px; }
+      .x-icons a { width: 44px; height: 44px; display: grid; place-items: center; color: var(--x-mute); border-radius: 10px; transition: color 0.2s, background 0.2s; }
+      .x-icons a:hover { color: var(--x-acc); background: var(--x-s1); }
+      .x-icons svg { width: 18px; height: 18px; }
+
+      .x-term .x-impact li { font-size: 14px; }
+      .x-term .x-impact b { font-size: 14px; }
+      .x-contact .x-cterm p { margin: 0; max-width: none; color: inherit; }
+      .x-contact .x-cterm .x-p { color: var(--x-acc); }
+
+      /* pipeline track */
+      .x-flow { position: relative; height: 40px; margin: 0 10% 8px; }
+      .x-flow__line { position: absolute; left: 0; right: 0; top: 19px; height: 2px; background: var(--x-line); border-radius: 2px; overflow: hidden; }
+      .x-flow__line::before { content: ""; position: absolute; inset: 0; background: var(--x-grad); transform-origin: 0 50%; transform: scaleX(var(--d, 0)); }
+      .x-flow__node { position: absolute; top: 12px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--x-bg); border: 2px solid var(--x-line2); transition: border-color 0.3s, box-shadow 0.3s; }
+      .x-flow__node.is-on { border-color: var(--x-acc); box-shadow: 0 0 12px rgba(0, 229, 255, 0.6); }
+      .x-pkt { position: absolute; top: 16px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px var(--x-acc), 0 0 2px #fff; opacity: 0; }
+      .x-flow.is-live .x-pkt { animation: x-pkt 4.5s linear infinite; }
+      .x-pkt:nth-of-type(2) { animation-delay: 1.5s !important; } .x-pkt:nth-of-type(3) { animation-delay: 3s !important; }
+      @keyframes x-pkt { 0% { left: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+
+      /* projects: charts, tilt, spotlight */
+      .x-proj { transform-style: preserve-3d; }
+      .x-proj.is-in { transition: transform 0.25s var(--x-ease), border-color 0.25s, opacity 0.8s; }
+      .x-proj::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.3s; background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 229, 255, 0.12), rgba(124, 58, 237, 0.06) 40%, transparent 70%); }
+      .x-proj:hover::before { opacity: 1; }
+      .x-proj > * { position: relative; }
+      .x-proj > .x-viz { position: absolute; }
+      .x-viz--in { position: static !important; width: 150px; height: 46px; }
+      .x-viz rect, .x-viz--line path { transform-box: fill-box; }
+      .x-viz--bars rect, .x-viz--in rect { transform-origin: bottom; transform: scaleY(0.15); transition: transform 1s var(--x-ease); }
+      .x-viz--in rect { fill: rgba(255, 255, 255, 0.14); }
+      .x-viz--in rect.x-hot { fill: var(--x-acc); }
+      .is-in .x-viz--bars rect, .is-in .x-viz--in rect { transform: none; }
+      .x-viz--heat rect { animation: x-heat 3.2s ease-in-out infinite; }
+      .x-viz--heat rect:nth-child(3n) { animation-delay: 0.8s; } .x-viz--heat rect:nth-child(4n) { animation-delay: 1.6s; } .x-viz--heat rect:nth-child(5n) { animation-delay: 2.3s; }
+      @keyframes x-heat { 50% { opacity: 0.35; } }
+      .x-viz--line path { fill: none; stroke: var(--x-acc); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 300; stroke-dashoffset: 300; transition: stroke-dashoffset 1.6s var(--x-ease); }
+      .x-viz--line path + path { stroke: var(--x-vio); stroke-dasharray: 3 4; stroke-dashoffset: 0; stroke-width: 1.4; opacity: 0.8; transition: none; }
+      .is-in .x-viz--line path:first-child { stroke-dashoffset: 0; }
+
+      /* schema */
+      .x-schema { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 48px; }
+      .x-rel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+      .x-rel path { fill: none; stroke: rgba(0, 229, 255, 0.4); stroke-width: 1.2; stroke-dasharray: 4 6; animation: x-dash 1.2s linear infinite; }
+      .x-rel path:nth-child(even) { stroke: rgba(124, 58, 237, 0.6); }
+      @keyframes x-dash { to { stroke-dashoffset: -20; } }
+      .x-tbl { position: relative; z-index: 1; border-radius: 14px; overflow: hidden; background: rgba(14, 17, 27, 0.92); align-self: start; }
+      .x-tbl header { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px; background: linear-gradient(90deg, rgba(0, 229, 255, 0.14), rgba(124, 58, 237, 0.14)); border-bottom: 1px solid var(--x-line); font: 500 13.5px/1.2 var(--x-mono); color: var(--x-text); }
+      .x-tbl header small { color: var(--x-dim); font-size: 12px; }
+      .x-tbl ul { list-style: none; margin: 0; padding: 6px 0; }
+      .x-tbl li { display: flex; align-items: center; gap: 10px; padding: 6px 16px; font: 400 13px/1.4 var(--x-mono); color: #c7ccd4; border-top: 1px solid rgba(255, 255, 255, 0.03); }
+      .x-tbl li::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 2px; border: 1px solid var(--x-line2); }
+      .x-tbl li:first-child::before { background: var(--x-acc); border-color: var(--x-acc); }
+      .x-js .x-tbl li { opacity: 0; transform: translateX(-8px); transition: opacity 0.4s, transform 0.4s var(--x-ease); transition-delay: calc(var(--i, 0) * 50ms); }
+      .x-js .x-rv.is-in .x-tbl li { opacity: 1; transform: none; }
+
+      /* holographic badges */
+      .x-badgecard { position: relative; overflow: hidden; }
+      .x-badgecard::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 30%, rgba(0, 229, 255, 0.1) 45%, rgba(124, 58, 237, 0.12) 55%, transparent 70%); background-size: 300% 100%; animation: x-sheen2 7s linear infinite; }
+      @keyframes x-sheen2 { from { background-position: 150% 0; } to { background-position: -150% 0; } }
+      .x-hex { width: 64px; height: 64px; display: grid; place-items: center; clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); background: conic-gradient(from var(--a, 0deg), #00e5ff, #7c3aed, #00e5ff); animation: x-spin 6s linear infinite; }
+      .x-hex span { width: 56px; height: 56px; display: grid; place-items: center; clip-path: inherit; background: #0e111b; color: var(--x-acc); font: 500 13px/1 var(--x-mono); }
+      @property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+      @keyframes x-spin { to { --a: 360deg; } }
+
+      /* contact */
+      .x-cterm { margin-top: 40px; max-width: 760px; }
+      .x-cterm .x-term__body { display: grid; gap: 6px; }
+      .x-crow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; min-height: 44px; }
+      .x-crow > span { width: 90px; color: var(--x-dim); }
+      .x-crow a { color: var(--x-text); text-decoration: none; overflow-wrap: anywhere; min-height: 44px; display: inline-flex; align-items: center; }
+      .x-crow a:hover { color: var(--x-acc); }
+      .x-js .x-cterm .x-crow, .x-js .x-cterm .x-btns { opacity: 0; transform: translateY(6px); transition: opacity 0.4s, transform 0.4s var(--x-ease); }
+      .x-cterm.is-on .x-crow, .x-cterm.is-on .x-btns { opacity: 1; transform: none; }
+      .x-cterm .x-btns { margin-top: 14px; }
+      .x-pulse { animation: x-pulse 2.2s infinite; }
+      @keyframes x-pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.55); } 70%, 100% { box-shadow: 0 0 0 14px rgba(0, 229, 255, 0); } }
+      .x-gline { height: 1px; margin-top: 8px; background: var(--x-grad); background-size: 200% 100%; animation: x-gl 4s linear infinite; }
+      @keyframes x-gl { to { background-position: 200% 0; } }
+      .x-foot { border-top: 0; }
+
+      /* reveal */
+      .x-js .x-rv { opacity: 0; transform: translateY(18px); transition: opacity 0.8s var(--x-ease), transform 0.8s var(--x-ease); }
+      .x-js .x-rv.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 1080px) {
+        .x-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .x-step:last-child { grid-column: span 2; }
+        .x-step::after, .x-flow { display: none; }
+        .x-proj--xl, .x-proj--l { grid-column: span 12; min-height: 0; }
+        .x-proj--s { grid-column: span 6; }
+        .x-principles li { grid-template-columns: 36px 1fr; }
+        .x-principles p { grid-column: 2; }
+      }
+      @media (max-width: 960px) {
+        .x-hero { grid-template-columns: minmax(0, 1fr); padding-top: 56px; }
+        .x-h1 { font-size: clamp(44px, 8vw, 72px); }
+        .x-about, .x-job, .x-duo { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+        .x-portrait { max-width: 440px; }
+        .x-metrics { grid-template-columns: repeat(2, 1fr); }
+        .x-metric:nth-child(3) { border-left: 0; }
+        .x-metric:nth-child(n + 3) { border-top: 1px solid var(--x-line); }
+        .x-beyond { grid-template-columns: minmax(0, 1fr); }
+        .x-beyond > * { border-left: 0; border-top: 1px solid var(--x-line); }
+        .x-beyond > :first-child { border-top: 0; }
+      }
+      @media (max-width: 860px) {
+        .x-burger { display: block; }
+        .x-menu { position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; align-items: stretch; padding: 8px; background: var(--x-s1); border: 1px solid var(--x-line); border-radius: 16px; display: none; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+        .x-nav.is-open .x-menu { display: flex; }
+        .x-menu a { padding: 0 14px; font-size: 16px; }
+        .x-btn--sm { margin: 8px 0 4px; }
+      }
+      @media (max-width: 720px) {
+        .x-sec { padding-top: 80px; }
+        .x-head { margin-bottom: 36px; }
+        .x-floor, .x-rel { display: none; }
+        .x-globe { width: 100%; right: 0; top: 0; opacity: 0.45; }
+        .x-schema { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+        .x-holo { width: min(320px, 78%); }
+        .x-term, .x-json pre { font-size: 13px; }
+        .x-term__body, .x-json pre { padding: 16px; }
+        .x-crow > span { width: 100%; }
+        .x-steps { grid-template-columns: minmax(0, 1fr); }
+        .x-step:last-child { grid-column: auto; }
+        .x-job, .x-edu, .x-cert { padding: 26px; }
+        .x-impact li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+        .x-bento > * { grid-column: span 12 !important; }
+        .x-proj { padding: 24px; }
+        .x-proj > .x-viz { position: static; width: 120px; order: -1; }
+        .x-proj--xl .x-proj__top, .x-proj--l .x-proj__top { padding-right: 0; }
+        .x-stackt > div { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+        .x-contact { padding: 100px 0 80px; }
+        .x-foot { flex-direction: column-reverse; align-items: flex-start; }
+      }
+      @media (max-width: 440px) {
+        .x-metric { padding: 22px 18px; }
+        .x-btns .x-btn { flex: 1 1 auto; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .x-js .x-rv, .x-js .x-tbl li, .x-js .x-cterm .x-crow, .x-js .x-cterm .x-btns { opacity: 1; transform: none; transition: none; }
+        *, *::before, *::after { animation: none !important; }
+        .x-ring circle + circle, .x-viz rect, .x-viz--line path { transition: none !important; }
+        .x-pkt, .x-caret { display: none; }
+        .x-flow__line::before { transform: none; }
+      }
+
+      /* fillers: quiet, decorative extras */
+      body.x-body { color-scheme: dark; }
+      .x-rain { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.22; }
+      .x-holo { margin: 16px 0; }
+      .x-hudp { display: grid; grid-template-columns: 1fr 1fr; margin-top: 12px; border: 1px solid var(--x-line); border-radius: 14px; background: rgba(14, 17, 27, 0.6); font: 400 12px/1.3 var(--x-mono); }
+      .x-hudp > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; min-width: 0; }
+      .x-hudp > div:nth-child(even) { border-left: 1px solid var(--x-line); }
+      .x-hudp > div:nth-child(n + 3) { border-top: 1px solid var(--x-line); }
+      .x-hudp span { color: var(--x-dim); display: block; white-space: nowrap; }
+      .x-hudp b { color: var(--x-text); font-weight: 500; font-size: 13.5px; }
+      .x-hudp svg { flex: none; width: 56px; height: 16px; }
+      .x-hudp polyline { fill: none; stroke: var(--x-acc); stroke-width: 1.2; opacity: 0.7; vector-effect: non-scaling-stroke; }
+      .x-band { margin-top: 72px; height: 36px; display: flex; align-items: center; overflow: hidden; border-block: 1px solid var(--x-line); -webkit-mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+      .x-band + .x-sec { padding-top: 72px; }
+      .x-band__log { display: flex; width: max-content; font: 400 12px/1 var(--x-mono); color: var(--x-dim); opacity: 0.8; animation: x-tick 70s linear infinite; }
+      .x-band__log span { margin-right: 48px; white-space: nowrap; } .x-band__log b { color: var(--x-acc); font-weight: 400; } .x-band__log em { color: #28c840; font-style: normal; }
+      .x-wave { width: 100%; height: 34px; display: block; }
+      .x-wave path { fill: none; stroke: var(--x-acc); stroke-width: 1.2; opacity: 0.45; vector-effect: non-scaling-stroke; }
+      .x-wave path + path { stroke: var(--x-vio); opacity: 0.55; }
+      .x-acol { display: grid; gap: 16px; align-content: start; }
+      .x-json .c { color: var(--x-dim); } .x-json .w { color: #a78bfa; }
+      .x-mbars { margin-top: 36px; padding: 18px; display: grid; gap: 14px; border: 1px solid var(--x-line); border-radius: 14px; background: rgba(14, 17, 27, 0.5); }
+      .x-mbar { display: grid; grid-template-columns: 1fr auto; gap: 7px 10px; font: 400 12.5px/1.2 var(--x-mono); color: var(--x-mute); }
+      .x-mbar b { color: var(--x-acc); font-weight: 500; }
+      .x-mbar i { grid-column: 1 / -1; position: relative; height: 4px; border-radius: 4px; background: var(--x-line); overflow: hidden; }
+      .x-mbar i::before { content: ""; position: absolute; inset: 0; background: var(--x-grad); background-size: 200% 100%; transform-origin: 0 50%; transform: scaleX(0); transition: transform 1.4s var(--x-ease) 0.2s; animation: x-gl 4s linear infinite; }
+      html:not(.x-js) .x-mbar i::before, .is-in .x-mbar i::before, .x-still .x-mbar i::before { transform: scaleX(var(--v)); }
+      .x-gmap { display: grid; grid-template-columns: repeat(18, minmax(0, 1fr)); gap: 3px; width: 100%; margin-bottom: 6px; }
+      .x-gmap i { aspect-ratio: 1; border-radius: 2px; background: var(--x-acc); opacity: 0.06; transition: opacity 0.9s; }
+      .x-radar { grid-column: span 2; margin: 0; }
+      .x-radar .chart__canvas { height: 250px; margin: 6px 12px 12px; }
+      .x-learn { display: grid; gap: 10px; margin-top: 6px; }
+      .x-learn__m { overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+      .x-cert .x-learn__m p { display: flex; width: max-content; animation: x-tick 22s linear infinite; }
+      .x-learn__m span { margin-right: 6px; font: 400 12.5px/1 var(--x-mono); color: #c7ccd4; padding: 7px 10px; border: 1px dashed var(--x-line2); border-radius: 7px; white-space: nowrap; }
+      .x-cgrid { display: grid; grid-template-columns: minmax(0, 760px) minmax(0, 1fr); gap: 16px; margin-top: 40px; align-items: stretch; }
+      .x-cgrid .x-cterm { margin-top: 0; }
+      .x-geo { margin: 0; display: flex; flex-direction: column; }
+      .x-geo svg { display: block; width: 100%; max-width: 280px; height: auto; margin: 16px auto 0; }
+      .x-geo circle { fill: rgba(0, 229, 255, 0.2); }
+      .x-geo .x-gu { fill: var(--x-acc); }
+      .x-geo .x-gr { fill: none; stroke: var(--x-acc); stroke-width: 1.2; transform-box: fill-box; transform-origin: center; animation: x-gring 2.4s ease-out infinite; }
+      @keyframes x-gring { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(3.2); opacity: 0; } }
+      .x-geo dl { margin: auto 0 0; padding: 14px 20px 18px; display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; font: 400 12.5px/1.7 var(--x-mono); }
+      .x-geo dt { color: var(--x-dim); } .x-geo dd { margin: 0; color: var(--x-text); text-align: right; }
+      @media (max-width: 960px) { .x-cgrid { grid-template-columns: minmax(0, 1fr); } }
+      @media (max-width: 720px) { .x-radar { grid-column: auto; } .x-band { margin-top: 56px; } .x-band + .x-sec { padding-top: 56px; } }
+      @media (max-width: 480px) { .x-hudp, .x-band, .x-code, .x-gmap, .x-radar, .x-geo, .x-rain { display: none; } .x-band + .x-sec { padding-top: 80px; } }
+    </style>
+  </head>
+  <body class="x-body">
+    <div class="x-progress" id="x-progress" aria-hidden="true"></div>
+    <canvas class="x-rain" id="x-rain" aria-hidden="true"></canvas>
+    <nav class="x-map x-glass" aria-label="Section mini-map">
+      <a href="#about"><span>about</span><i></i></a><a href="#pipeline"><span>pipeline</span><i></i></a><a href="#experience"><span>experience</span><i></i></a><a href="#projects"><span>projects</span><i></i></a><a href="#stack"><span>stack</span><i></i></a><a href="#education"><span>education</span><i></i></a><a href="#contact"><span>contact</span><i></i></a>
+    </nav>
+    <div class="page" id="top">
+      <div class="x-wrap">
+        <header class="x-nav" id="x-nav">
+          <a class="x-mark" href="#top" aria-label="revanth, back to top"><i aria-hidden="true"></i>revanth</a>
+          <button class="x-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="x-menu"><span></span><span></span></button>
+          <ul class="x-menu" id="x-menu">
+            <li><a href="#about">About</a></li>
+            <li><a href="#pipeline">Pipeline</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a class="x-btn x-btn--sm" href="Revanth_Sai_Resume.pdf" download>Resume ↓</a></li>
+          </ul>
+        </header>
+
+        <main>
+          <div class="x-herow">
+          <canvas class="x-globe" id="x-globe" aria-hidden="true"></canvas>
+          <div class="x-floor" aria-hidden="true"></div>
+          <section class="x-hero" aria-label="Introduction">
+            <div class="x-rv">
+              <p class="x-pill x-glass"><i aria-hidden="true"></i>Open to Data / AI Engineering roles · 2027</p>
+              <p class="x-tline"><b>~/revanth</b> $ <span data-type>python pipeline.py --ingest --train --deploy</span><i class="x-caret" aria-hidden="true"></i></p>
+              <h1 class="x-h1" id="x-name" aria-label="Vedantam Revanth Sai">Vedantam Revanth Sai</h1>
+              <p class="x-role">&gt; <span id="x-role" data-roles="AI &amp; Data Engineer|LLM Developer|Full-Stack Developer">AI &amp; Data Engineer · LLM Developer · Full-Stack</span><i class="x-caret" aria-hidden="true"></i></p>
+              <p class="x-hero__line">I build data pipelines that turn raw data into <b>intelligent products</b>. B.Tech CSE (Data Engineering for AI), KL University.</p>
+              <div class="x-btns">
+                <a class="x-btn x-btn--solid" href="#projects">View projects</a>
+                <a class="x-btn" href="Revanth_Sai_Resume.pdf" download>Download CV ↓</a>
+              </div>
+            </div>
+            <figure class="x-holo x-rv" aria-label="Holographic ID card of Vedantam Revanth Sai">
+              <div class="x-holo__card">
+                <p class="x-hud x-hud--t"><span>ID · revanth_sai</span><span>● online</span></p>
+                <img src="photo.png" alt="Vedantam Revanth Sai" width="880" height="1044" decoding="async" />
+                <p class="x-hud x-hud--b"><span>Guntur, India</span><span>KL Univ · CSE</span></p>
+              </div>
+              <div class="x-hudp" aria-label="System readout">
+                <div><p><span>uptime</span><b>99.9%</b></p><svg viewBox="0 0 60 16" preserveAspectRatio="none" aria-hidden="true"><polyline /></svg></div>
+                <div><p><span>latency</span><b>&lt;200ms</b></p><svg viewBox="0 0 60 16" preserveAspectRatio="none" aria-hidden="true"><polyline /></svg></div>
+                <div><p><span>records/day</span><b>10K</b></p><svg viewBox="0 0 60 16" preserveAspectRatio="none" aria-hidden="true"><polyline /></svg></div>
+                <div><p><span>precision</span><b>92%</b></p><svg viewBox="0 0 60 16" preserveAspectRatio="none" aria-hidden="true"><polyline /></svg></div>
+              </div>
+            </figure>
+          </section>
+          <div class="x-ticker" aria-label="Recent results log">
+            <div>
+              <span><b>[ingest]</b> WHO/CDC feeds · ~10K records/day · ok</span><span><b>[model]</b> outbreak forecaster · 88% accuracy</span><span><b>[fraud]</b> GigShield · ~92% precision · &lt;200 ms</span><span><b>[llm]</b> response relevance +~30%</span><span><b>[serve]</b> inference latency −25%</span><span><b>[sched]</b> timetable conflicts −95%</span>
+              <span aria-hidden="true"><b>[ingest]</b> WHO/CDC feeds · ~10K records/day · ok</span><span aria-hidden="true"><b>[model]</b> outbreak forecaster · 88% accuracy</span><span aria-hidden="true"><b>[fraud]</b> GigShield · ~92% precision · &lt;200 ms</span><span aria-hidden="true"><b>[llm]</b> response relevance +~30%</span><span aria-hidden="true"><b>[serve]</b> inference latency −25%</span><span aria-hidden="true"><b>[sched]</b> timetable conflicts −95%</span>
+            </div>
+          </div>
+          </div>
+
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="x-rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00E5FF" /><stop offset="1" stop-color="#7C3AED" /></linearGradient></defs></svg>
+          <section class="x-metrics x-glass x-rv" aria-label="At a glance">
+            <div class="x-metric"><div class="x-ring" style="--p:93.1" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" pathLength="100" /><circle cx="32" cy="32" r="28" pathLength="100" /></svg></div><b><em data-count="9.31" data-dec="2">9.31</em></b><span>CGPA</span></div>
+            <div class="x-metric"><div class="x-ring" style="--p:100" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" pathLength="100" /><circle cx="32" cy="32" r="28" pathLength="100" /></svg></div><b><span data-count="1">1</span> yr</b><span>Industry · Viswam.ai</span></div>
+            <div class="x-metric"><div class="x-ring" style="--p:70" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" pathLength="100" /><circle cx="32" cy="32" r="28" pathLength="100" /></svg></div><b data-count="7">7</b><span>Production projects</span></div>
+            <div class="x-metric"><div class="x-ring" style="--p:75" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" pathLength="100" /><circle cx="32" cy="32" r="28" pathLength="100" /></svg></div><b><span data-count="150">150</span>+</b><span>DSA problems solved</span></div>
+          </section>
+
+          <section class="x-sec" id="about">
+            <div class="x-about">
+              <div class="x-acol">
+              <figure class="x-term x-json x-glass x-rv" style="margin:0" aria-label="Profile summary">
+                <div class="x-term__bar"><i></i><i></i><i></i>profile.json</div>
+<pre>{
+  <span class="k">"name"</span>: <span class="s">"Vedantam Revanth Sai"</span>,
+  <span class="k">"based_in"</span>: <span class="s">"Guntur, India"</span>,
+  <span class="k">"degree"</span>: <span class="s">"B.Tech CSE · Data Eng for AI"</span>,
+  <span class="k">"cgpa"</span>: <span class="n">9.31</span>,
+  <span class="k">"industry_yrs"</span>: <span class="n">1</span>,
+  <span class="k">"projects_shipped"</span>: <span class="n">7</span>,
+  <span class="k">"focus"</span>: [<span class="s">"LLMs"</span>, <span class="s">"pipelines"</span>, <span class="s">"MLOps"</span>],
+  <span class="k">"status"</span>: <span class="s">"open_to_roles"</span>
+}</pre>
+              </figure>
+              <figure class="x-term x-json x-glass x-rv x-code" id="x-code" style="margin:0" aria-label="Code sample: a pipeline from ingest to serve">
+                <div class="x-term__bar"><i></i><i></i><i></i>pipeline.py</div>
+<pre><span class="w">@pipeline</span>(schedule=<span class="s">"daily"</span>)
+<span class="w">def</span> <span class="k">run</span>(src):
+    raw   = <span class="k">ingest</span>(src)      <span class="c"># 10K rows/day</span>
+    clean = <span class="k">transform</span>(raw)   <span class="c"># pandas · numpy</span>
+    model = <span class="k">train</span>(clean)     <span class="c"># xgboost · hf</span>
+    <span class="k">evaluate</span>(model)          <span class="c"># bleu · rouge</span>
+    <span class="w">return</span> <span class="k">serve</span>(model)      <span class="c"># flask · aws</span>
+
+<span class="c">&gt;&gt;&gt;</span> run(<span class="s">"who_cdc"</span>)  <span class="n">✓ api v2 healthy</span></pre>
+              </figure>
+              </div>
+              <div class="x-rv">
+                <p class="x-kicker">About</p>
+                <h2 class="x-h2">From raw data to <span class="x-acc">production AI.</span></h2>
+                <div class="x-prose" style="margin-top:28px">
+                  <p>I'm a <strong>B.Tech Computer Science (Data Engineering for AI)</strong> student at KL University with a <strong>9.31 CGPA</strong> and <strong>1 year of industry experience</strong> building LLM applications at Viswam.ai.</p>
+                  <p>I build end-to-end AI pipelines, from data ingestion and model fine-tuning to production deployment, with Python, TensorFlow, XGBoost and the HuggingFace ecosystem. I've shipped <strong>7 production-grade projects</strong> across public health AI, fraud detection, healthcare, hospital systems and intelligent scheduling.</p>
+                </div>
+                <ul class="x-principles">
+                  <li><small>01</small><h3>Reliable pipelines</h3><p>Preprocessing and data pipelines I built at Viswam.ai cut data prep time by ~40%.</p></li>
+                  <li><small>02</small><h3>Measurable models</h3><p>Every model is benchmarked on BLEU, ROUGE and latency; batching and caching cut inference latency 25%.</p></li>
+                  <li><small>03</small><h3>Production first</h3><p>Seven projects shipped end to end, from ingestion to API, on Flask, Docker and AWS.</p></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <div class="x-band" aria-hidden="true">
+            <p class="x-band__log"><span><b>[ETL]</b> batch_0421 loaded 10,342 rows <em>✓</em></span><span><b>[TRAIN]</b> epoch 12 loss 0.084</span><span><b>[EVAL]</b> bleu · rouge · p95 latency logged</span><span><b>[DEPLOY]</b> api v2 healthy <em>✓</em></span><span><b>[ETL]</b> batch_0421 loaded 10,342 rows <em>✓</em></span><span><b>[TRAIN]</b> epoch 12 loss 0.084</span><span><b>[EVAL]</b> bleu · rouge · p95 latency logged</span><span><b>[DEPLOY]</b> api v2 healthy <em>✓</em></span></p>
+          </div>
+
+          <section class="x-sec" id="pipeline">
+            <div class="x-head x-rv">
+              <p class="x-kicker">How I build</p>
+              <h2 class="x-h2">Five stages, <span class="x-acc">every project.</span></h2>
+              <p class="x-lede">The same pipeline runs under every system I ship, from LLM apps to fraud detection.</p>
+            </div>
+            <div class="x-flow" id="x-flow" aria-hidden="true">
+              <div class="x-flow__line"></div>
+              <i class="x-flow__node" style="left:0"></i><i class="x-flow__node" style="left:25%"></i><i class="x-flow__node" style="left:50%"></i><i class="x-flow__node" style="left:75%"></i><i class="x-flow__node" style="left:100%"></i>
+              <b class="x-pkt"></b><b class="x-pkt"></b><b class="x-pkt"></b>
+            </div>
+            <ol class="x-steps">
+              <li class="x-card x-glass x-step x-rv"><span class="x-step__n">01 / INGEST</span><h3>Ingest</h3><p>Pull data from APIs, databases and files into one place, daily or live.</p><ul class="x-tags"><li>REST APIs</li><li>Flask</li><li>FastAPI</li></ul></li>
+              <li class="x-card x-glass x-step x-rv"><span class="x-step__n">02 / TRANSFORM</span><h3>Clean &amp; Transform</h3><p>Preprocess text and tables into model-ready features.</p><ul class="x-tags"><li>Pandas</li><li>NumPy</li></ul></li>
+              <li class="x-card x-glass x-step x-rv"><span class="x-step__n">03 / MODEL</span><h3>Model</h3><p>Train forecasters and classifiers, fine-tune LLMs.</p><ul class="x-tags"><li>TensorFlow</li><li>XGBoost</li><li>HuggingFace</li></ul></li>
+              <li class="x-card x-glass x-step x-rv"><span class="x-step__n">04 / EVALUATE</span><h3>Evaluate</h3><p>Measure quality and speed before anything ships.</p><ul class="x-tags"><li>BLEU</li><li>ROUGE</li><li>latency</li></ul></li>
+              <li class="x-card x-glass x-step x-rv"><span class="x-step__n">05 / DEPLOY</span><h3>Deploy</h3><p>Serve behind an API, containerised and in the cloud.</p><ul class="x-tags"><li>Flask</li><li>Docker</li><li>AWS</li></ul></li>
+            </ol>
+          </section>
+
+          <section class="x-sec" id="experience">
+            <div class="x-head x-rv">
+              <p class="x-kicker">Experience</p>
+              <h2 class="x-h2">Where I've <span class="x-acc">shipped</span> AI.</h2>
+            </div>
+            <article class="x-card x-glass x-job x-rv">
+              <div>
+                <h3>AI Intern — LLM Developer</h3>
+                <p class="x-job__org">Viswam.ai</p>
+                <p class="x-label x-job__when">Jan 2024 – Dec 2024</p>
+                <div class="x-mbars" aria-label="Model metrics">
+                  <p class="x-label">model_metrics</p>
+                  <div class="x-mbar" style="--v:.6"><span>relevance</span><b>+30%</b><i></i></div>
+                  <div class="x-mbar" style="--v:.8"><span>prep time</span><b>−40%</b><i></i></div>
+                  <div class="x-mbar" style="--v:.5"><span>latency</span><b>−25%</b><i></i></div>
+                </div>
+              </div>
+              <div class="x-term x-glass" id="x-exp">
+              <div class="x-term__bar"><i></i><i></i><i></i>viswam_ai.log · Jan–Dec 2024</div>
+              <div class="x-term__body">
+              <p class="x-p" style="margin-bottom:12px">$ cat impact.log</p>
+              <ul class="x-impact">
+                <li><b>~30%</b><span>Developed and fine-tuned LLM apps with HuggingFace Transformers; prompt engineering and context management lifted <strong>response relevance ~30%</strong> across 3 production deployments.</span></li>
+                <li><b>~40%</b><span>Built text preprocessing and data pipelines that cut <strong>data prep time ~40%</strong>.</span></li>
+                <li><b>25%</b><span>Benchmarked with BLEU, ROUGE and latency; batching and caching cut <strong>inference latency 25%</strong>.</span></li>
+                <li><b>team of 6</b><span>Integrated REST APIs and backend services in a cross-functional <strong>team of 6 engineers</strong>.</span></li>
+                <li><b>end-to-end</b><span>Architected systems from ingestion → preprocessing → training → API deployment with Python, HuggingFace, Flask and Docker.</span></li>
+              </ul>
+              </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="x-sec" id="projects">
+            <div class="x-head x-rv">
+              <p class="x-kicker">Projects</p>
+              <h2 class="x-h2">Selected <span class="x-acc">work.</span></h2>
+              <p class="x-lede">Production systems across public health, fraud, healthcare and scheduling.</p>
+            </div>
+            <div class="x-bento">
+              <article class="x-card x-glass x-proj x-proj--xl x-rv">
+                <svg class="x-viz x-viz--heat" viewBox="0 0 123 53" aria-hidden="true"><rect x="0" y="0" width="11" height="11" rx="2" fill-opacity="0.06"/><rect x="14" y="0" width="11" height="11" rx="2" fill-opacity="0.06"/><rect x="28" y="0" width="11" height="11" rx="2" fill-opacity="0.35"/><rect x="42" y="0" width="11" height="11" rx="2" fill-opacity="0.13"/><rect x="56" y="0" width="11" height="11" rx="2" fill-opacity="0.42"/><rect x="70" y="0" width="11" height="11" rx="2" fill-opacity="0.40"/><rect x="84" y="0" width="11" height="11" rx="2" fill-opacity="0.31"/><rect x="98" y="0" width="11" height="11" rx="2" fill-opacity="0.60"/><rect x="112" y="0" width="11" height="11" rx="2" fill-opacity="0.43"/><rect x="0" y="14" width="11" height="11" rx="2" fill-opacity="0.29"/><rect x="14" y="14" width="11" height="11" rx="2" fill-opacity="0.17"/><rect x="28" y="14" width="11" height="11" rx="2" fill-opacity="0.24"/><rect x="42" y="14" width="11" height="11" rx="2" fill-opacity="0.47"/><rect x="56" y="14" width="11" height="11" rx="2" fill-opacity="0.74"/><rect x="70" y="14" width="11" height="11" rx="2" fill-opacity="0.45"/><rect x="84" y="14" width="11" height="11" rx="2" fill-opacity="0.56"/><rect x="98" y="14" width="11" height="11" rx="2" fill-opacity="0.83"/><rect x="112" y="14" width="11" height="11" rx="2" fill-opacity="1.00"/><rect x="0" y="28" width="11" height="11" rx="2" fill-opacity="0.36"/><rect x="14" y="28" width="11" height="11" rx="2" fill-opacity="0.33"/><rect x="28" y="28" width="11" height="11" rx="2" fill-opacity="0.69"/><rect x="42" y="28" width="11" height="11" rx="2" fill-opacity="0.28"/><rect x="56" y="28" width="11" height="11" rx="2" fill-opacity="0.75"/><rect x="70" y="28" width="11" height="11" rx="2" fill-opacity="0.53"/><rect x="84" y="28" width="11" height="11" rx="2" fill-opacity="0.52"/><rect x="98" y="28" width="11" height="11" rx="2" fill-opacity="0.58"/><rect x="112" y="28" width="11" height="11" rx="2" fill-opacity="0.73"/><rect x="0" y="42" width="11" height="11" rx="2" fill-opacity="0.31"/><rect x="14" y="42" width="11" height="11" rx="2" fill-opacity="0.06"/><rect x="28" y="42" width="11" height="11" rx="2" fill-opacity="0.32"/><rect x="42" y="42" width="11" height="11" rx="2" fill-opacity="0.41"/><rect x="56" y="42" width="11" height="11" rx="2" fill-opacity="0.34"/><rect x="70" y="42" width="11" height="11" rx="2" fill-opacity="0.49"/><rect x="84" y="42" width="11" height="11" rx="2" fill-opacity="0.31"/><rect x="98" y="42" width="11" height="11" rx="2" fill-opacity="0.38"/><rect x="112" y="42" width="11" height="11" rx="2" fill-opacity="0.51"/></svg>
+                <div class="x-proj__top"><span class="x-label">ML pipeline · public health AI</span></div>
+                <h3>Disease Outbreak Detection System</h3>
+                <p>LSTM forecasting, XGBoost and Isolation Forest on WHO/CDC data, ingested daily through Flask/FastAPI, with GeoPandas/Folium risk heatmaps and a Plotly/React dashboard.</p>
+                <ul class="x-nums">
+                  <li><b><em><span data-count="88">88</span>%</em></b><span>accuracy</span></li>
+                  <li><b>~<span data-count="10">10</span>K</b><span>records / day</span></li>
+                  <li><b><span data-count="10">10</span>+</b><span>diseases tracked</span></li>
+                </ul>
+                <div class="x-proj__foot">
+                  <ul class="x-tags"><li>Python</li><li>TensorFlow</li><li>XGBoost</li><li>Flask</li><li>React.js</li><li>GeoPandas</li><li>Docker</li><li>AWS</li></ul>
+                  <a class="x-gh" href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+              </article>
+
+              <article class="x-card x-glass x-proj x-proj--l x-rv">
+                <svg class="x-viz x-viz--bars" viewBox="0 0 151 60" aria-hidden="true"><rect x="0" y="42" width="8" height="18" rx="2"/><rect x="13" y="36" width="8" height="24" rx="2"/><rect x="26" y="44" width="8" height="16" rx="2"/><rect x="39" y="32" width="8" height="28" rx="2"/><rect x="52" y="38" width="8" height="22" rx="2"/><rect x="65" y="40" width="8" height="20" rx="2"/><rect x="78" y="34" width="8" height="26" rx="2"/><rect x="91" y="41" width="8" height="19" rx="2"/><rect class="x-hot" x="104" y="8" width="8" height="52" rx="2"/><rect x="117" y="37" width="8" height="23" rx="2"/><rect x="130" y="43" width="8" height="17" rx="2"/><rect x="143" y="35" width="8" height="25" rx="2"/></svg>
+                <div class="x-proj__top"><span class="x-label">Fraud detection</span><span class="x-label">2025</span></div>
+                <h3>GigShield <small>AI Fraud Detection Platform</small></h3>
+                <p>Trust and security for the gig economy: anomaly detection and behaviour models, JWT + bcrypt auth, WebSocket alerts, Stripe and Razorpay monitoring. MERN with a Python ML microservice on AWS/Vercel.</p>
+                <ul class="x-nums">
+                  <li><b><em>~<span data-count="92">92</span>%</em></b><span>precision</span></li>
+                  <li><b>&lt;<span data-count="200">200</span><small style="font-size:18px"> ms</small></b><span>avg API</span></li>
+                  <li><b><span data-count="50">50</span>K</b><span>records</span></li>
+                </ul>
+                <div class="x-proj__foot">
+                  <ul class="x-tags"><li>React.js</li><li>Node.js</li><li>Express</li><li>MongoDB</li><li>scikit-learn</li><li>Stripe</li><li>Docker</li><li>AWS</li></ul>
+                  <a class="x-gh" href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+              </article>
+
+              <article class="x-card x-glass x-proj x-proj--m x-rv">
+                <svg class="x-viz x-viz--in" viewBox="0 0 150 46" aria-hidden="true"><rect x="0" y="26" width="40" height="20" rx="3"/><rect x="55" y="14" width="40" height="32" rx="3"/><rect class="x-hot" x="110" y="0" width="40" height="46" rx="3"/></svg>
+                <div class="x-proj__top"><span class="x-label">Full-stack · healthcare</span><span class="x-label">2026</span></div>
+                <h3>ProCare <small>Hospital Management System</small></h3>
+                <p>Spring Boot + React with JWT role-based access. Records, appointments and prescriptions over Swagger-documented REST APIs; iTextPDF medical reports; JavaMailSender reminders and discharge summaries. Dockerised on PostgreSQL.</p>
+                <ul class="x-nums">
+                  <li><b><em data-count="3">3</em></b><span>user roles · admin, doctor, patient</span></li>
+                  <li><b>Auto</b><span>PDF reports + email reminders</span></li>
+                </ul>
+                <div class="x-proj__foot">
+                  <ul class="x-tags"><li>Spring Boot</li><li>React.js</li><li>JWT</li><li>PostgreSQL</li><li>iTextPDF</li><li>Swagger</li><li>Docker</li></ul>
+                  <a class="x-gh" href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+              </article>
+
+              <article class="x-card x-glass x-proj x-proj--m x-rv">
+                <svg class="x-viz x-viz--in x-viz--line" viewBox="0 0 150 46" aria-hidden="true"><path d="M2 4 C30 6 40 30 70 36 S120 42 148 43"/><path d="M2 40 C40 34 80 18 148 6"/></svg>
+                <div class="x-proj__top"><span class="x-label">Optimisation · scheduling</span><span class="x-label">Nov 2025 – Feb 2026</span></div>
+                <h3>AI Timetable Generator</h3>
+                <p>Genetic Algorithms, Hill Climbing and CSP solvers with ML-suggested slots across 3 departments, supporting 50+ rooms and 100+ faculty.</p>
+                <ul class="x-nums">
+                  <li><b><em><span data-count="95">95</span>%</em></b><span>fewer conflicts</span></li>
+                  <li><b>~<span data-count="70">70</span>%</b><span>less manual effort</span></li>
+                  <li><b><span data-count="100">100</span>+</b><span>faculty</span></li>
+                </ul>
+                <div class="x-proj__foot">
+                  <ul class="x-tags"><li>Python</li><li>Genetic Algorithms</li><li>CSP</li><li>Machine Learning</li></ul>
+                  <a class="x-gh" href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+              </article>
+
+              <article class="x-card x-glass x-proj x-proj--s x-rv">
+                <svg class="x-viz x-viz--in" viewBox="0 0 150 46" aria-hidden="true"><rect x="0" y="0" width="60" height="46" rx="3"/><rect class="x-hot" x="80" y="16" width="60" height="30" rx="3"/></svg>
+                <div class="x-proj__top"><span class="x-label">Full-stack</span><span class="x-label">2024</span></div>
+                <h3>Health Management System</h3>
+                <p>Django + PostgreSQL for registration, appointments and medical history, with role-based access. Deployed on Heroku.</p>
+                <ul class="x-nums"><li><b><em><span data-count="35">35</span>%</em></b><span>faster page loads</span></li></ul>
+                <div class="x-proj__foot">
+                  <ul class="x-tags"><li>Python</li><li>Django</li><li>PostgreSQL</li><li>Heroku</li></ul>
+                  <a class="x-gh" href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+              </article>
+
+              <article class="x-card x-glass x-proj x-proj--s x-rv">
+                <svg class="x-viz x-viz--in" viewBox="0 0 150 46" aria-hidden="true"><rect x="0" y="0" width="60" height="46" rx="3"/><rect class="x-hot" x="80" y="28" width="60" height="18" rx="3"/></svg>
+                <div class="x-proj__top"><span class="x-label">Full-stack</span><span class="x-label">2024</span></div>
+                <h3>Job Portal <small>with LinkedIn Integration</small></h3>
+                <p>Dual-sided platform with smart filtering, resume management and LinkedIn OAuth sign-in.</p>
+                <ul class="x-nums"><li><b><em>~<span data-count="60">60</span>%</em></b><span>faster onboarding</span></li></ul>
+                <div class="x-proj__foot">
+                  <ul class="x-tags"><li>Spring Boot</li><li>Thymeleaf</li><li>LinkedIn API</li></ul>
+                  <a class="x-gh" href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+              </article>
+
+              <article class="x-card x-glass x-proj x-proj--s x-proj--more x-rv">
+                <div class="x-gmap" aria-hidden="true"></div>
+                <span class="x-label">Open source</span>
+                <h3>More AI/ML repos, with documented READMEs.</h3>
+                <a class="x-gh" href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">github.com/Revanth-sai-2006 →</a>
+              </article>
+            </div>
+          </section>
+          <div class="x-band" aria-hidden="true"><svg class="x-wave" viewBox="0 0 1000 34" preserveAspectRatio="none"><path d="M0 17H1000" /><path d="M0 17H1000" /></svg></div>
+
+          <section class="x-sec" id="stack">
+            <div class="x-head x-rv">
+              <p class="x-kicker">Stack</p>
+              <h2 class="x-h2">The <span class="x-acc">toolkit.</span></h2>
+            </div>
+            <div class="x-schema x-rv" id="x-schema">
+              <svg class="x-rel" aria-hidden="true"></svg>
+              <div class="x-tbl x-glass" id="t-lang" data-rel="t-ml t-web"><header><h3 style="font:inherit">languages</h3><small>04 rows</small></header><ul><li>Python</li><li>Java</li><li>JavaScript</li><li>SQL</li></ul></div>
+              <div class="x-tbl x-glass" id="t-ml" data-rel="t-viz t-db"><header><h3 style="font:inherit">ai_ml</h3><small>14 rows</small></header><ul><li>Scikit-learn</li><li>TensorFlow</li><li>Keras</li><li>XGBoost</li><li>Pandas</li><li>NumPy</li><li>LangChain</li><li>RAG Pipelines</li><li>Prompt Engineering</li><li>LLM Fine-tuning</li><li>Anomaly Detection</li><li>Time Series Forecasting</li><li>FAISS</li><li>ChromaDB</li></ul></div>
+              <div class="x-tbl x-glass" id="t-db" data-rel="t-web"><header><h3 style="font:inherit">data_databases</h3><small>04 rows</small></header><ul><li>PostgreSQL</li><li>MongoDB</li><li>MySQL</li><li>Firebase</li></ul></div>
+              <div class="x-tbl x-glass" id="t-web" data-rel="t-ops t-cs"><header><h3 style="font:inherit">web_frameworks</h3><small>08 rows</small></header><ul><li>Django</li><li>Flask</li><li>FastAPI</li><li>Spring Boot</li><li>React.js</li><li>Node.js</li><li>Express.js</li><li>Thymeleaf</li></ul></div>
+              <div class="x-tbl x-glass" id="t-ops" data-rel="t-viz"><header><h3 style="font:inherit">devops_cloud</h3><small>10 rows</small></header><ul><li>Git</li><li>GitHub</li><li>Docker</li><li>GitHub Actions CI/CD</li><li>AWS</li><li>Google Cloud</li><li>Heroku</li><li>Vercel</li><li>Postman</li><li>Swagger</li></ul></div>
+              <div class="x-tbl x-glass" id="t-viz"><header><h3 style="font:inherit">data_viz_gis</h3><small>06 rows</small></header><ul><li>GeoPandas</li><li>Folium</li><li>Plotly</li><li>Matplotlib</li><li>Seaborn</li><li>Google Maps API</li></ul></div>
+              <div class="x-tbl x-glass" id="t-cs"><header><h3 style="font:inherit">cs_fundamentals</h3><small>05 rows</small></header><ul><li>Data Structures &amp; Algorithms</li><li>Computer Networks</li><li>DBMS</li><li>Software Engineering</li><li>MLOps</li></ul></div>
+              <figure class="x-tbl x-glass x-radar"><header><h3 style="font:inherit">skill_areas</h3><small>tools listed per area</small></header><div class="chart__canvas"><canvas id="x-radar" role="img" aria-label="AI/ML leads with 14 tools, Data and Cloud have 10 each, Web 8, CS fundamentals 5"></canvas></div></figure>
+              <script type="application/json" id="x-skill-data">[{"area":"AI/ML","tools":14},{"area":"Data","tools":10},{"area":"Web","tools":8},{"area":"Cloud","tools":10},{"area":"CS","tools":5}]</script>
+            </div>
+          </section>
+
+          <section class="x-sec" id="education">
+            <div class="x-head x-rv">
+              <p class="x-kicker">Education</p>
+              <h2 class="x-h2">Foundations, <span class="x-acc">verified.</span></h2>
+            </div>
+            <div class="x-duo">
+              <div class="x-card x-glass x-badgecard x-edu x-rv">
+                <span class="x-hex" aria-hidden="true"><span>KLU</span></span>
+                <span class="x-label">Aug 2023 – May 2027</span>
+                <h3>B.Tech — Computer Science &amp; Engineering</h3>
+                <p class="x-edu__meta"><span>KL University, Guntur</span></p>
+                <div class="x-edu__row">
+                  <div><b>9.31<small> / 10</small></b><span class="x-label">CGPA</span></div>
+                  <div><span class="x-label">Specialisation</span><p>Data Engineering for AI</p></div>
+                </div>
+                <ul class="x-tags"><li>Data Structures</li><li>Algorithms</li><li>Computer Networks</li><li>DBMS</li><li>Software Engineering</li><li>AI &amp; Machine Learning</li><li>MLOps</li></ul>
+              </div>
+              <div class="x-card x-glass x-badgecard x-cert x-rv">
+                <span class="x-hex" aria-hidden="true"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span></span>
+                <span class="x-label">Certification · MongoDB University</span>
+                <h3>MongoDB Associate Developer</h3>
+                <p>Node.js track</p>
+                <div class="x-learn"><span class="x-label">learning next</span><div class="x-learn__m"><p aria-label="Apache Spark, Airflow, dbt, Kafka"><span>Apache Spark</span><span>Airflow</span><span>dbt</span><span>Kafka</span><span aria-hidden="true">Apache Spark</span><span aria-hidden="true">Airflow</span><span aria-hidden="true">dbt</span><span aria-hidden="true">Kafka</span></p></div></div>
+                <p class="x-verified">● verified</p>
+              </div>
+            </div>
+            <div class="x-beyond x-glass x-rv">
+              <span class="x-label">Beyond code</span>
+              <p>Organised <b>5+</b> tech meetups, hackathons and workshops at KL University for <b>100+</b> participants.</p>
+              <p><b>150+</b> problems solved on LeetCode and CodeChef.</p>
+              <p>Maintains <b>open-source</b> AI/ML projects on GitHub with documented READMEs.</p>
+            </div>
+          </section>
+
+          <section class="x-contact" id="contact">
+            <div class="x-rv">
+              <p class="x-kicker">Contact</p>
+              <h2>Let's build your next <span class="x-acc">data platform.</span></h2>
+              <p>Open to internships, AI/ML and full-stack roles, and interesting collaborations. Based in Guntur, India.</p>
+              <div class="x-cgrid">
+              <div class="x-term x-glass x-cterm" id="x-cterm">
+                <div class="x-term__bar"><i></i><i></i><i></i>revanth@contact: ~</div>
+                <div class="x-term__body">
+                  <p class="x-p" style="min-height:1.7em"><span data-type>&gt; connect --with revanth</span><i class="x-caret" aria-hidden="true"></i></p>
+                  <p class="x-crow" style="transition-delay:.05s"><span>email</span><a href="mailto:2300031900@kluniversity.in">2300031900@kluniversity.in</a></p>
+                  <p class="x-crow" style="transition-delay:.2s"><span>phone</span><a href="tel:+918143703439">+91 81437 03439</a></p>
+                  <p class="x-crow" style="transition-delay:.35s"><span>linkedin</span><a href="https://www.linkedin.com/in/revanth-sai-55b7b72a0" target="_blank" rel="noopener">in/revanth-sai-55b7b72a0 ↗</a></p>
+                  <p class="x-crow" style="transition-delay:.5s"><span>github</span><a href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener">Revanth-sai-2006 ↗</a></p>
+                  <div class="x-btns" style="transition-delay:.65s">
+                    <a class="x-btn x-btn--solid x-pulse" href="mailto:2300031900@kluniversity.in">Send email →</a>
+                    <a class="x-btn" href="Revanth_Sai_Resume.pdf" download>Download CV ↓</a>
+                  </div>
+                </div>
+              </div>
+              <figure class="x-term x-glass x-geo" aria-label="Location: Guntur, India, with local time">
+                <div class="x-term__bar"><i></i><i></i><i></i>location.geo</div>
+                <svg viewBox="0 0 300 315" aria-hidden="true"><circle class="x-gr" cx="124.5" cy="212" r="5" /><circle class="x-gu" cx="124.5" cy="212" r="4" /></svg>
+                <dl><dt>city</dt><dd>Guntur, AP</dd><dt>coords</dt><dd>16.31°N 80.44°E</dd><dt>IST</dt><dd id="x-clock">--:--:--</dd></dl>
+              </figure>
+              </div>
+            </div>
+          </section>
+        </main>
+        <div class="x-gline" aria-hidden="true"></div>
+        <footer class="x-foot">
+          <p>© 2026 Vedantam Revanth Sai</p>
+          <div class="x-icons">
+            <a href="https://github.com/Revanth-sai-2006" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
+            <a href="https://www.linkedin.com/in/revanth-sai-55b7b72a0" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a>
+            <a href="mailto:2300031900@kluniversity.in" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+            <a href="tel:+918143703439" aria-label="Phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="hark.js"></script>
+    <script src="chart.js"></script>
+    <script src="datalabels.js"></script>
+    <script src="hark-charts.js"></script>
+    <script>
+      (function () {
+        var d = document, root = d.documentElement, nav = d.getElementById("x-nav");
+        var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        root.classList.add("x-js");
+        var W = window, small = W.matchMedia("(max-width: 720px)").matches, PI2 = Math.PI * 2;
+        if (still) root.classList.add("x-still");
+        function $(s) { return d.querySelector(s); }
+        function $$(s, c) { return [].slice.call((c || d).querySelectorAll(s)); }
+        // one rAF loop for every continuous animation
+        var tasks = [];
+        function loop(t) { for (var i = 0; i < tasks.length; i++) tasks[i](t); requestAnimationFrame(loop); }
+        if (!still) requestAnimationFrame(loop);
+        // typer: types text into el, n chars per tick
+        function type(el, text, done, sp, n) {
+          if (still) { el.textContent = text; if (done) done(); return; }
+          var i = 0; n = n || 1; el.textContent = "";
+          (function go() { i += n; el.textContent = text.slice(0, i); if (i < text.length) setTimeout(go, sp || 38); else if (done) done(); })();
+        }
+        // hero: terminal line, scramble name, role typer
+        var tl = $(".x-tline [data-type]"); type(tl, tl.textContent);
+        var nm = $("#x-name"), full = nm.textContent, glyph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01<>/_#$%";
+        if (!still) { var s0 = null; tasks.push(function sc(t) { if (s0 === null) s0 = t; var k = (t - s0) / 28, out = ""; for (var i = 0; i < full.length; i++) out += full[i] === " " || i < k - 6 ? full[i] : glyph[(Math.random() * glyph.length) | 0]; nm.textContent = out; if (k - 6 > full.length) { nm.textContent = full; tasks.splice(tasks.indexOf(sc), 1); } }); }
+        var role = $("#x-role"), roles = role.dataset.roles.split("|"), ri = 0;
+        if (!still) (function next() { var r = roles[ri++ % roles.length]; type(role, r, function () { setTimeout(function back() { var s = role.textContent; if (s.length) { role.textContent = s.slice(0, -1); setTimeout(back, 22); } else next(); }, 1800); }, 55); })();
+        // globe
+        var cv = $("#x-globe"), cx2 = cv.getContext("2d"), N = small ? 240 : 600, pts = [], arcs = [], gw = 0, dpr = 1, heroOn = true;
+        for (var i = 0; i < N; i++) { var y = 1 - (2 * (i + 0.5)) / N, r = Math.sqrt(1 - y * y), a = i * 2.39996; pts.push([Math.cos(a) * r, y, Math.sin(a) * r]); }
+        for (i = 0; i < (small ? 4 : 9); i++) arcs.push([(i * 97) % N, (i * 211 + 140) % N, i * 0.23]);
+        function gsize() { dpr = Math.min(W.devicePixelRatio || 1, small ? 1.5 : 2); gw = cv.clientWidth; cv.width = gw * dpr; cv.height = gw * dpr; }
+        function proj(p, cr, sr) { var x = p[0] * cr - p[2] * sr, z = p[0] * sr + p[2] * cr, y = p[1] * 0.94 - z * 0.34; return [x, y, p[1] * 0.34 + z * 0.94]; }
+        function globe(t) {
+          if (!heroOn || !gw) return;
+          var c = cx2, R = gw * 0.38, o = gw / 2, rot = t * 0.00012, cr = Math.cos(rot), sr = Math.sin(rot);
+          c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, gw, gw);
+          c.beginPath(); c.arc(o, o, R * 1.02, 0, PI2); c.strokeStyle = "rgba(0,229,255,.14)"; c.lineWidth = 1; c.stroke();
+          for (var i = 0; i < N; i++) { var q = proj(pts[i], cr, sr), dz = (q[2] + 1) / 2, s = 0.7 + 1.5 * dz;
+            c.fillStyle = q[2] > 0 ? "rgba(0,229,255," + (0.25 + 0.7 * dz).toFixed(2) + ")" : "rgba(124,58,237," + (0.15 + 0.4 * dz).toFixed(2) + ")";
+            c.fillRect(o + q[0] * R - s / 2, o + q[1] * R - s / 2, s, s); }
+          arcs.forEach(function (ar) {
+            var A = pts[ar[0]], B = pts[ar[1]], M = [(A[0] + B[0]) / 2, (A[1] + B[1]) / 2, (A[2] + B[2]) / 2], ml = Math.hypot(M[0], M[1], M[2]) || 1;
+            M = [M[0] / ml * 1.35, M[1] / ml * 1.35, M[2] / ml * 1.35];
+            var a = proj(A, cr, sr), b = proj(B, cr, sr), m = proj(M, cr, sr);
+            if (m[2] < 0) return;
+            var ax = o + a[0] * R, ay = o + a[1] * R, bx = o + b[0] * R, by = o + b[1] * R, mx = o + m[0] * R, my = o + m[1] * R;
+            c.beginPath(); c.moveTo(ax, ay); c.quadraticCurveTo(mx, my, bx, by); c.strokeStyle = "rgba(0,229,255,.28)"; c.stroke();
+            var u = (t / 2600 + ar[2]) % 1, v = 1 - u, px = v * v * ax + 2 * v * u * mx + u * u * bx, py = v * v * ay + 2 * v * u * my + u * u * by;
+            c.beginPath(); c.arc(px, py, 2.2, 0, PI2); c.fillStyle = "#fff"; c.fill();
+          });
+        }
+        gsize(); if (still) globe(0); else tasks.push(globe);
+        if ("IntersectionObserver" in W) new IntersectionObserver(function (es) { heroOn = es[0].isIntersecting; }).observe(cv);
+        // projects: tilt + spotlight
+        if (!still && W.matchMedia("(pointer: fine)").matches) $$(".x-proj").forEach(function (el) {
+          el.addEventListener("pointermove", function (e) { var b = el.getBoundingClientRect(), px = (e.clientX - b.left) / b.width, py = (e.clientY - b.top) / b.height; el.style.setProperty("--mx", px * 100 + "%"); el.style.setProperty("--my", py * 100 + "%"); if (el.classList.contains("is-in")) el.style.transform = "perspective(900px) rotateX(" + ((0.5 - py) * 5).toFixed(2) + "deg) rotateY(" + ((px - 0.5) * 7).toFixed(2) + "deg)"; });
+          el.addEventListener("pointerleave", function () { el.style.transform = ""; });
+        });
+        // schema relation lines
+        var sch = $("#x-schema"), rel = $(".x-rel");
+        $$(".x-tbl").forEach(function (tb) { $$("li", tb).forEach(function (li, i) { li.style.setProperty("--i", i); }); });
+        function lines() {
+          if (W.innerWidth <= 720) return;
+          var h = "";
+          $$(".x-tbl[data-rel]").forEach(function (a) { a.dataset.rel.split(" ").forEach(function (id) { var b = d.getElementById(id);
+            var ax = a.offsetLeft + a.offsetWidth / 2, ay = a.offsetTop + 22, bx = b.offsetLeft + b.offsetWidth / 2, by = b.offsetTop + 22, mx = (ax + bx) / 2;
+            h += '<path d="M' + ax + " " + ay + " C" + mx + " " + ay + " " + mx + " " + by + " " + bx + " " + by + '"/>'; }); });
+          rel.innerHTML = h;
+        }
+        lines();
+        // pipeline line + scroll progress
+        var bar = $("#x-progress"), flow = $("#x-flow"), pipe = $("#pipeline"), nodes = $$(".x-flow__node"), ticking = false;
+        function onFrame() {
+          ticking = false;
+          var se = root.scrollHeight - W.innerHeight; bar.style.transform = "scaleX(" + (se > 0 ? W.scrollY / se : 0) + ")";
+          var b = pipe.getBoundingClientRect(), p = still ? 1 : Math.max(0, Math.min(1, (W.innerHeight * 0.8 - b.top) / (b.height * 0.55)));
+          flow.style.setProperty("--d", p.toFixed(3)); nodes.forEach(function (n, i) { n.classList.toggle("is-on", p >= i / 4 - 0.001); }); flow.classList.toggle("is-live", p >= 1);
+        }
+        function onScroll() { nav.classList.toggle("is-scrolled", window.scrollY > 8); if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }
+        W.addEventListener("resize", function () { small = W.matchMedia("(max-width: 720px)").matches; gsize(); lines(); if (still) globe(0); onScroll(); });
+        W.addEventListener("load", lines);
+        // experience + contact terminals type when seen
+        var exp = $("#x-exp"), items = $$(".x-impact li").map(function (li) { var b = li.querySelector("b"), s = li.querySelector("span"); return [li, b, b.textContent, s, s.innerHTML, s.textContent]; });
+        var ct = $("#x-cterm"), cty = ct.querySelector("[data-type]");
+        function runExp() { var k = 0; (function nx() { var it = items[k++]; if (!it) return; type(it[1], it[2], function () { type(it[3], it[5], function () { it[3].innerHTML = it[4]; it[0].style.minHeight = ""; nx(); }, 8, 2); }, 30); })(); }
+        if (still || !("IntersectionObserver" in W)) { ct.classList.add("is-on"); }
+        else {
+          items.forEach(function (it) { it[0].style.minHeight = it[0].offsetHeight + "px"; it[1].textContent = ""; it[3].textContent = ""; });
+          cty.textContent = "";
+          var cty0 = "> connect --with revanth";
+          var tio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) return; tio.unobserve(e.target); if (e.target === exp) runExp(); else type(cty, cty0, function () { ct.classList.add("is-on"); }, 45); }); }, { threshold: 0.3 });
+          tio.observe(exp); tio.observe(ct);
+        }
+        // fillers: all motion runs through the shared rAF loop
+        function every(ms, fn) { var l = 0; return function (t) { if (t - l >= ms) { l = t; fn(t); } }; }
+        function seen(el, fn) { var o = { on: !("IntersectionObserver" in W) }; if (o.on) { if (fn) fn(); } else { var ob = new IntersectionObserver(function (es) { o.on = es[0].isIntersecting; if (o.on && fn) { fn(); fn = null; } }, { threshold: 0.25 }); ob.observe(el); } return o; }
+        function rnd(n) { return (Math.random() * n) | 0; }
+        // margin data rain
+        var rc = $("#x-rain"), rx = rc.getContext("2d"), wrap = $(".x-wrap"), cols = [], HEX = "0123456789ABCDEF0101";
+        function rain() {
+          rx.globalCompositeOperation = "destination-out"; rx.fillStyle = "rgba(0,0,0,.12)"; rx.fillRect(0, 0, rc.width, rc.height);
+          rx.globalCompositeOperation = "source-over"; rx.fillStyle = "#00e5ff";
+          cols.forEach(function (c) { rx.fillText(HEX[rnd(HEX.length)], c[0], c[1] * 14); if (c[1]++ * 14 > rc.height && Math.random() > 0.95) c[1] = 0; });
+        }
+        function rsize() {
+          rc.width = W.innerWidth; rc.height = W.innerHeight; cols = [];
+          var g = wrap.getBoundingClientRect().left;
+          if (g >= 72 && getComputedStyle(rc).display !== "none") for (var x = 12; x < g - 28; x += 18) cols.push([x, rnd(rc.height / 14)], [rc.width - x - 10, rnd(rc.height / 14)]);
+          rx.font = "12px 'JetBrains Mono', monospace"; if (still) for (var k = 0; k < 16; k++) rain();
+        }
+        rsize(); W.addEventListener("resize", rsize);
+        if (!still) tasks.push(every(70, function () { if (cols.length) rain(); }));
+        // hero HUD sparklines
+        var sp = $$(".x-hudp polyline").map(function (pl, i) { return [pl, [], [0.9, 0.45, 0.6, 0.8][i], [0.04, 0.25, 0.18, 0.08][i]]; });
+        function spark() { sp.forEach(function (s) { var a = s[1]; if (a.length > 23) a.shift(); a.push(Math.max(0.05, Math.min(0.98, s[2] + (Math.random() - 0.5) * 2 * s[3]))); s[0].setAttribute("points", a.map(function (v, k) { return (k * 60 / 23).toFixed(1) + "," + (15 - v * 14).toFixed(1); }).join(" ")); }); }
+        for (i = 0; i < 24; i++) spark();
+        if (!still) tasks.push(every(420, function () { if (heroOn) spark(); }));
+        // about: code card types itself, highlighting intact
+        var cpre = $("#x-code pre"), cn = [], cw = d.createTreeWalker(cpre, 4), nd;
+        while ((nd = cw.nextNode())) cn.push([nd, nd.data]);
+        if (!still && "IntersectionObserver" in W) {
+          cpre.style.minHeight = cpre.offsetHeight + "px"; cn.forEach(function (c) { c[0].data = ""; });
+          seen(cpre, function () { var t0 = null; tasks.push(function ty(t) { t0 = t0 || t; var k = (t - t0) / 16, left = k; cn.forEach(function (c) { var n = Math.max(0, Math.min(c[1].length, left)); c[0].data = c[1].slice(0, n); left -= c[1].length; }); if (left > 0) tasks.splice(tasks.indexOf(ty), 1); }); });
+        }
+        // projects: contribution heatmap
+        var gm = $(".x-gmap"), gl = [0.06, 0.06, 0.18, 0.35, 0.6, 0.9], gc = [];
+        for (i = 0; i < 126; i++) { var gi = d.createElement("i"); gi.style.opacity = gl[rnd(6)]; gm.appendChild(gi); gc.push(gi); }
+        var gms = seen(gm);
+        if (!still) tasks.push(every(200, function () { if (gms.on) for (var k = 0; k < 3; k++) gc[rnd(126)].style.opacity = gl[rnd(6)]; }));
+        // band waveform
+        var wv = $$(".x-wave path"), wvs = seen(wv[0].parentNode);
+        function wave(t) { var s = t / 1000; wv.forEach(function (p, j) { var c = (s * 0.12 + j * 0.5) % 1, h = "M0 17"; for (var x = 0; x <= 1000; x += 10) { var e = Math.exp(-Math.pow((x / 1000 - c) * 6, 2)); h += " L" + x + " " + (17 + Math.sin(x * 0.045 + (j ? s * 3 : -s * 3) + j) * (2 + 12 * e) * (j ? 0.6 : 1)).toFixed(1); } p.setAttribute("d", h); }); }
+        wave(0); if (!still) tasks.push(function (t) { if (wvs.on) wave(t); });
+        // stack: skill-area radar
+        var rcv = $("#x-radar");
+        seen(rcv, function () { var sk = Hark.data("x-skill-data"); new Chart(rcv, { type: "radar", data: { labels: sk.map(function (a) { return a.area; }), datasets: [{ label: "Tools", data: sk.map(function (a) { return a.tools; }), pointRadius: 3 }] }, options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (c) { return c.raw + " tools"; } } } }, scales: { r: { beginAtZero: true, ticks: { display: false } } } } }); });
+        // contact: India dot map + IST clock
+        var P = [74.5,37,77.8,35.5,79,34.3,78.4,32.5,79.5,31,80.3,30.2,81.1,30,80.1,28.9,81.8,27.4,84.1,27.4,85.9,26.6,88.1,26.4,88.1,27.9,88.9,27.3,89,26.8,92,26.8,91.7,27.8,94.5,29.2,96.2,29.4,97.4,28.2,96,27.2,95.2,26.6,94.6,25.2,94.2,23.8,93.4,23.6,93.2,22.2,92.6,21.9,92.2,24.4,92,25.1,90,25.2,89.8,25.9,89,26.3,88.4,26.1,88.1,25,88.7,24.2,88.9,22.9,89,21.8,88,21.6,86.9,21,86.4,20,85,19.3,84.1,18.3,82.3,16.6,81.3,16.3,81,15.8,80.2,15.2,80.1,13.4,79.8,10.3,79.2,10.3,78.2,8.9,77.5,8.1,76.6,8.9,76.2,10,75.8,11.3,74.9,12.8,74.1,14.8,73.4,16.4,72.9,18.6,72.7,20.3,72.6,21.4,71,20.7,70,21,68.9,22.3,68.4,23.6,69.4,24.3,71,24.4,70.6,25.7,69.6,27,70.6,28,72,28.9,73.4,29.9,74.5,31,75.3,32.3,74.6,32.8,73.9,33.9,74.5,37];
+        function inP(x, y) { for (var c = false, a = 0, b = P.length - 2; a < P.length; b = a, a += 2) if ((P[a + 1] > y) !== (P[b + 1] > y) && x < (P[b] - P[a]) * (y - P[a + 1]) / (P[b + 1] - P[a + 1]) + P[a]) c = !c; return c; }
+        var dots = "";
+        for (var la = 36.9; la > 7; la -= 0.75) for (var lo = 68.3; lo < 97.6; lo += 0.75) if (inP(lo, la)) dots += '<circle cx="' + ((lo - 68) * 10).toFixed(1) + '" cy="' + ((37.5 - la) * 10).toFixed(1) + '" r="2.4"/>';
+        $(".x-geo svg").insertAdjacentHTML("afterbegin", dots);
+        var clk = $("#x-clock");
+        function tick() { var n = new Date(Date.now() + 198e5); clk.textContent = [n.getUTCHours(), n.getUTCMinutes(), n.getUTCSeconds()].map(function (v) { return (v < 10 ? "0" : "") + v; }).join(":"); }
+        tick(); if (still) setInterval(tick, 1000); else tasks.push(every(1000, tick));
+        onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
+        var burger = nav.querySelector(".x-burger");
+        burger.addEventListener("click", function () {
+          var open = nav.classList.toggle("is-open");
+          burger.setAttribute("aria-expanded", open); burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        });
+        nav.querySelectorAll(".x-menu a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); }); });
+        function count(el) {
+          var to = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0), t0 = null;
+          if (still) return;
+          function step(t) { t0 = t0 || t; var p = Math.min((t - t0) / 1200, 1), e = 1 - Math.pow(1 - p, 3); el.textContent = (to * e).toFixed(dec); if (p < 1) requestAnimationFrame(step); }
+          requestAnimationFrame(step);
+        }
+        if (!("IntersectionObserver" in window)) { d.querySelectorAll(".x-rv").forEach(function (e) { e.classList.add("is-in"); }); return; }
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            e.target.classList.add("is-in");
+            e.target.querySelectorAll("[data-count]").forEach(count);
+            io.unobserve(e.target);
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+        d.querySelectorAll(".x-rv").forEach(function (e) { io.observe(e); });
+        var links = [].slice.call(d.querySelectorAll('.x-menu a[href^="#"], .x-map a'));
+        var spy = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            links.forEach(function (a) { a.classList.toggle("is-active", a.getAttribute("href") === "#" + e.target.id); });
+          });
+        }, { rootMargin: "-45% 0px -50% 0px" });
+        links.forEach(function (a) { var s = d.querySelector(a.getAttribute("href")); if (s) spy.observe(s); });
+      })();
+    </script>
+  </body>
+</html>
