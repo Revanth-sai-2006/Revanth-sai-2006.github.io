@@ -1,0 +1,24 @@
+{
+  "name": "finVerse AI",
+  "short_name": "finVerse",
+  "description": "AI-powered personal finance: forecasts, health score, anomaly alerts and an AI analyst. Built for India.",
+  "id": "./",
+  "start_url": "./dashboard/?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080D1B",
+  "theme_color": "#080D1B",
+  "lang": "en-IN",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "finverse-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "finverse-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "finverse-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "finverse-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "AI Assistant", "url": "./assistant/", "icons": [{ "src": "finverse-icon-192.png", "sizes": "192x192" }] },
+    { "name": "Transactions", "url": "./transactions/", "icons": [{ "src": "finverse-icon-192.png", "sizes": "192x192" }] }
+  ]
+}
